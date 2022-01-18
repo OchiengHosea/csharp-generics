@@ -1,6 +1,8 @@
 ﻿using System;
 using CSGenerics.Repositories;
 using CSGenerics.Entities;
+using CSGenerics.Data;
+using CSGenerics.Interfaces;
 
 namespace CSGenerics
 {
@@ -8,11 +10,8 @@ namespace CSGenerics
     {
         static void Main(string[] args)
         {
-            var employeeRepository = new GenericRepository<Employee>();
-            employeeRepository.Add(new Employee{FirstName="Julia"});
-            employeeRepository.Add(new Employee{FirstName="Anna"});
-            employeeRepository.Add(new Employee{FirstName="thomas"});
-            employeeRepository.Save();
+            var employeeRepository = new SqlRepository<Employee>(new StorageAppDbContext());
+            AddEmployees(employeeRepository);
 
             var organizationRepository = new GenericRepository<Organization>();
             organizationRepository.Add(new Organization{Name="Pluralsight"});
@@ -45,6 +44,14 @@ namespace CSGenerics
             stack.Push("Simple string");
             stack.Push("Authority");
             stack.Push("Manager");
+        }
+
+        private static void AddEmployees(IRepository<Employee> employeeRepository)
+        {
+            employeeRepository.Add(new Employee{FirstName="Julia"});
+            employeeRepository.Add(new Employee{FirstName="Anna"});
+            employeeRepository.Add(new Employee{FirstName="thomas"});
+            employeeRepository.Save();
         }
     }
 }

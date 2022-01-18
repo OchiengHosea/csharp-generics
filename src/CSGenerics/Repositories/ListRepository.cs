@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSGenerics.Entities;
-
+using CSGenerics.Interfaces;
 // use of class constraint
 namespace CSGenerics
 {
-    public class SqlRepository<T> where T: EntityBase, new()
+    public class ListRepository<T> : IRepository<T> where T: class, IEntity
     {
         private readonly List<T> _items = new();
 
