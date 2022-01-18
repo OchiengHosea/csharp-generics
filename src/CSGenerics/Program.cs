@@ -1,4 +1,6 @@
 ﻿using System;
+using CSGenerics.Repositories;
+using CSGenerics.Entities;
 
 namespace CSGenerics
 {
@@ -6,7 +8,16 @@ namespace CSGenerics
     {
         static void Main(string[] args)
         {
-            StackDoubles();
+            var employeeRepository = new GenericRepository<Employee>();
+            employeeRepository.Add(new Employee{FirstName="Julia"});
+            employeeRepository.Add(new Employee{FirstName="Anna"});
+            employeeRepository.Add(new Employee{FirstName="thomas"});
+            employeeRepository.Save();
+
+            var organizationRepository = new GenericRepository<Organization>();
+            organizationRepository.Add(new Organization{Name="Pluralsight"});
+            organizationRepository.Add(new Organization{Name="Globomantics"});
+            organizationRepository.Save();
         }
 
         private static void StackDoubles()
